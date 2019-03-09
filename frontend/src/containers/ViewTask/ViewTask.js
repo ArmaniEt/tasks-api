@@ -22,14 +22,16 @@ class TaskView extends Component{
     render(){
         if (!this.state.task) return null;
         const {summary, description, due_date, status, time_planned} = this.state.task;
+        let d = new Date(due_date);
+        let localDateTime = d.toLocaleString();
 
         return(
             <div className="container">
-                <h4>Статус задачи: {status}</h4>
+                <h4 className="text-center mt-2">Статус задачи: {status}</h4>
                 <h3>Задача: {summary}</h3>
-                <p>Сделать до: {due_date}</p>
+                <p>Сделать до: {localDateTime}</p>
                 <p>Время выполнения: {time_planned}</p>
-                {description ? <p>{description}</p>: null}
+                {description ? <p className="text-center">{description}</p>: null}
 
             </div>
 

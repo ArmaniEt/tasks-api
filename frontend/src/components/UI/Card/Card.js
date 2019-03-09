@@ -10,7 +10,7 @@ const TaskCard = (props) => {
     return (
         <Row>
             <Col sm="12">
-                <Card>
+                <Card className="mt-2">
                     <CardHeader className="text-center">{props.summary}</CardHeader>
                     <CardBody>
                         <CardText>{props.description}</CardText>

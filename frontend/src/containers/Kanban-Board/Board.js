@@ -1,28 +1,29 @@
 import React, {Component, Fragment} from 'react';
 import {TASKS_URL} from "../../urls";
+import {Col, Row} from 'reactstrap';
+import TasksCard from '../../components/Card/Card';
+
 
 class Board extends Component {
-    componentDidMount(){
+    componentDidMount() {
         fetch(TASKS_URL).then(response => {
-            if(response.ok) return response.json();
+            if (response.ok) return response.json();
             throw new Error("Something wrong with network request check it out")
         }).then(tasks => {
-            const TASKS_IN_QUEUE = tasks.map(task => {
-                if (task.status === 'Queue') return {...task}
+            let inProgressTask = [];
+            let doneTask = [];
+            let queueTask = [];
+            tasks.map(task => {
+                if (task.status === 'Queue') queueTask.push(task);
+                if (task.status === 'In progress') inProgressTask.push(task);
+                if (task.status === 'Done') doneTask.push(task);
             });
-            const TASKS_DONE = tasks.map(task => {
-                if (task.status === 'Done') return {...task}
-            });
-
-            const TASKS_IN_PROGRESS = tasks.map(task => {
-                if (task.status === 'In progress') return {...task}
-            });
-            this.setState({tasks_done: TASKS_DONE, tasks_queue: TASKS_IN_QUEUE, tasks_in_progress: TASKS_IN_PROGRESS})
-        }).catch(error => {console.log(error)})
+            this.setState({tasks_done: doneTask, tasks_queue: queueTask, tasks_in_progress: inProgressTask})
+        }).catch(error => {
+            console.log(error)
+        })
 
     }
-
-
 
 
     state = {
@@ -33,9 +34,42 @@ class Board extends Component {
 
 
     render() {
-        return(
+        return (
             <Fragment>
+                <Row>
+                    <Col xs={4}>
+                        <h2 className="text-center">Очередь</h2>
+                        {this.state.tasks_queue.map(tasks => <TasksCard
+                            key={tasks.id}
+                            title={tasks.summary}
+                            text={tasks.description.substring(0,50) + '...'}
+                            date={tasks.due_date}
+                            time={tasks.time_planned}
 
+                        />)}
+                    </Col>
+                    <Col xs={4}>
+                        <h2 className="text-center">В работе</h2>
+                        {this.state.tasks_in_progress.map(tasks => <TasksCard
+                            key={tasks.id}
+                            title={tasks.summary}
+                            text={tasks.description.substring(0,50) + '...'}
+                            date={tasks.due_date}
+                            time={tasks.time_planned}
+
+                        />)}
+                    </Col>
+                    <Col xs={4}>
+                        <h2 className="text-center">Сделано</h2>
+                        {this.state.tasks_done.map(tasks => <TasksCard
+                            key={tasks.id}
+                            title={tasks.summary}
+                            text={tasks.description.substring(0,50) + '...'}
+                            date={tasks.due_date}
+                            time={tasks.time_planned}
+                        />)}
+                    </Col>
+                </Row>
             </Fragment>
         )
     }

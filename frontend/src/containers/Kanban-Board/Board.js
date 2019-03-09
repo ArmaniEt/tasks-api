@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {TASKS_URL} from "../../urls";
 import {Col, Row} from 'reactstrap';
-import TasksCard from '../../components/Card/Card';
+import TaskCard from '../../components/TaskCard/TaskCard';
 
 
 class Board extends Component {
@@ -36,37 +36,28 @@ class Board extends Component {
     render() {
         return (
             <Fragment>
-                <Row>
+                <Row className="mt-3">
                     <Col xs={4}>
                         <h2 className="text-center">Очередь</h2>
-                        {this.state.tasks_queue.map(tasks => <TasksCard
-                            key={tasks.id}
-                            title={tasks.summary}
-                            text={tasks.description.substring(0,50) + '...'}
-                            date={tasks.due_date}
-                            time={tasks.time_planned}
+                        {this.state.tasks_queue.map(task => <TaskCard
+                            key={task.id}
+                            task={task}
 
                         />)}
                     </Col>
                     <Col xs={4}>
                         <h2 className="text-center">В работе</h2>
-                        {this.state.tasks_in_progress.map(tasks => <TasksCard
-                            key={tasks.id}
-                            title={tasks.summary}
-                            text={tasks.description.substring(0,50) + '...'}
-                            date={tasks.due_date}
-                            time={tasks.time_planned}
+                        {this.state.tasks_in_progress.map(task => <TaskCard
+                            key={task.id}
+                            task={task}
 
                         />)}
                     </Col>
                     <Col xs={4}>
                         <h2 className="text-center">Сделано</h2>
-                        {this.state.tasks_done.map(tasks => <TasksCard
-                            key={tasks.id}
-                            title={tasks.summary}
-                            text={tasks.description.substring(0,50) + '...'}
-                            date={tasks.due_date}
-                            time={tasks.time_planned}
+                        {this.state.tasks_done.map(task => <TaskCard
+                            key={task.id}
+                            task={task}
                         />)}
                     </Col>
                 </Row>

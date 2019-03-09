@@ -8,6 +8,6 @@ class NoAuthModelViewSet(viewsets.ModelViewSet):
 
 
 class TaskViewSet(NoAuthModelViewSet):
-    queryset = Task.objects.all()
+    queryset = Task.objects.all().order_by('+status', '-due_date')
     serializer_class = TaskSerializer
 

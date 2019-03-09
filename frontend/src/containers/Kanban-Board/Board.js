@@ -3,7 +3,6 @@ import {TASKS_URL} from "../../urls";
 import {Col, Row} from 'reactstrap';
 import TaskCard from '../../components/TaskCard/TaskCard';
 
-
 class Board extends Component {
     componentDidMount() {
         fetch(TASKS_URL).then(response => {

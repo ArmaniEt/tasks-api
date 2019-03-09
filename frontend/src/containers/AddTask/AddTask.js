@@ -104,7 +104,12 @@ class TaskAdd extends Component {
                     <label className="font-weight-bold">Дэдлайн задачи</label>
                     <div>
                         <DatePicker dateFormat="yyyy-MM-dd" selected={due_date_selected} className="form-control"
-                                    name="due_date" onChange={(date) => this.dateChanged('due_date', date)}/>
+                                    name="due_date"
+                                    showTimeSelect
+                                    timeFormat="HH:mm"
+                                    timeIntervals={15}
+                                    timeCaption="time"
+                                    onChange={(date) => this.dateChanged('due_date', date)}/>
                     </div>
                 </div>
                 <div className="form-group">

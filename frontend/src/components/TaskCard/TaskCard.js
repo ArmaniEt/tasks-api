@@ -6,11 +6,14 @@ const TaskCard = props => {
     const {task} = props;
 
     const {summary, id, description, due_date, time_planned} = task;
+    let d = new Date(due_date);
+    let localDateTime = d.toLocaleString();
     const link = {
         url: '/task/' + id
     };
 
-    return <Card summary={summary} link={link} description={description} date={due_date} time={time_planned}/>
+    return <Card summary={summary} link={link} description={description.substring(0,50) + "..."}
+                 date={localDateTime} time={time_planned}/>
 };
 
 

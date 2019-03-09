@@ -13,3 +13,6 @@ class Task(models.Model):
     due_date = models.DateTimeField()
     status = models.CharField(max_length=20, choices=TASK_STATUS, default='Queue')
     time_planned = models.DecimalField(max_digits=10, decimal_places=1, blank=True, null=True)
+
+    def __str__(self):
+        return self.summary
